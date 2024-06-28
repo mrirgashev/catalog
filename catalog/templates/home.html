@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!-- <pre>  it is home page where must be carusel, categories, all news, footer, all discounts and so on</pre> -->
+
+<div class="slide-container">
+    <div class="slides">
+        <img src="{% static 'images/1.png' %}" class="active">
+        <img src="{% static 'images/2.jpg' %}">
+        <img src="{% static 'images/3.png' %}">
+        <img src="{% static 'images/4.png' %}">
+        <img src="{% static 'images/5.jpg' %}">
+        <img src="{% static 'images/6.png' %}">
+    </div>
+    <div class="buttons">
+        <span class="next">&#10095;</span>
+        <span class="prev">&#10094;</span>
+    </div>
+    <div class="dotsContainer">
+        <div class="dot active" attr='0' onclick="switchImage(this)"></div>
+        <div class="dot" attr='1' onclick="switchImage(this)"></div>
+        <div class="dot" attr='2' onclick="switchImage(this)"></div>
+        <div class="dot" attr='3' onclick="switchImage(this)"></div>
+        <div class="dot" attr='4' onclick="switchImage(this)"></div>
+        <div class="dot" attr='5' onclick="switchImage(this)"></div>
+    </div>
+</div>
+<div class="container search-line has-text-centered">
+    <hr class="mb-0">
+    <div class="columns is-multiline mb-0 mt-1 is-vcentered">
+        <div class="column has-text-centered">
+            <img src="{% static 'images/look.png' %}" alt="">
+            <span> Онлайн подбор<br> масла</span>
+        </div>
+        <div class="column has-text-centered">
+            <img src="{% static 'images/money.png' %}" alt="">
+            <span> Доступная цена <br>от производителя</span>
+        </div>
+        <div class="column has-text-centered">
+            <img src="{% static 'images/container.png' %}" alt="">
+            <span> Широкий ассортимент<br> товаров</span>
+        </div>
+        <div class="column has-text-centered">
+            <img src="{% static 'images/time.png' %}" alt="">
+            <span> Быстрая доставка</span>
+        </div>
+    </div>
+    <hr class="mt-0">
+</div>
+
+
+<div class="categories">
+    <div class="columns is-multiline is-vcentered">
+        {% for category in categories %}
+            <div class="column is-3 category">
+                <div class="cat_image">
+                    <a href="{% url 'catalog:products' %}?category={{ category.pk }}">
+                        <img src="{{ category.cat_image.url }}" alt="{{ category.cat_image.url }}">
+                    </a>
+                </div>
+                {{ category }}
+            </div>
+        {% endfor %}
+    </div>
+</div> 
+
+
+<script type="text/javascript">
+    // Access the Images
+    let slideImages = document.querySelectorAll('.slides img');
+    // Access the next and prev buttons
+    let next = document.querySelector('.next');
+    let prev = document.querySelector('.prev');
+    // Access the indicators
+    let dots = document.querySelectorAll('.dot');
+
+    var counter = 0;
+    var autoSlideInterval;
+
+    // Code for next button
+    next.addEventListener('click', slideNext);
+    function slideNext() {
+        slideImages[counter].classList.remove('active');
+        slideImages[counter].style.animation = 'next1 0.5s ease-in forwards';
+        counter = (counter + 1) % slideImages.length;
+        slideImages[counter].classList.add('active');
+        slideImages[counter].style.animation = 'next2 0.5s ease-in forwards';
+        indicators();
+    }
+
+    // Code for prev button
+    prev.addEventListener('click', slidePrev);
+    function slidePrev() {
+        slideImages[counter].classList.remove('active');
+        slideImages[counter].style.animation = 'prev1 0.5s ease-in forwards';
+        counter = (counter - 1 + slideImages.length) % slideImages.length;
+        slideImages[counter].classList.add('active');
+        slideImages[counter].style.animation = 'prev2 0.5s ease-in forwards';
+        indicators();
+    }
+
+    // Auto sliding
+    function autoSliding() {
+        autoSlideInterval = setInterval(slideNext, 3000);
+    }
+    autoSliding();
+
+    // Stop auto sliding when mouse is over
+    const container = document.querySelector('.slide-container');
+    container.addEventListener('mouseover', function () {
+        clearInterval(autoSlideInterval);
+    });
+
+    // Resume sliding when mouse is out
+    container.addEventListener('mouseout', autoSliding);
+
+    // Add and remove active class from the indicators
+    function indicators() {
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(' active', '');
+        }
+        dots[counter].className += ' active';
+    }
+
+    // Add click event to the indicator
+    function switchImage(currentImage) {
+        let imageId = parseInt(currentImage.getAttribute('attr'));
+        if (imageId === counter) return;
+
+        slideImages[counter].classList.remove('active');
+        if (imageId > counter) {
+            slideImages[counter].style.animation = 'next1 0.5s ease-in forwards';
+        } else {
+            slideImages[counter].style.animation = 'prev1 0.5s ease-in forwards';
+        }
+        counter = imageId;
+        slideImages[counter].classList.add('active');
+        if (imageId > counter) {
+            slideImages[counter].style.animation = 'next2 0.5s ease-in forwards';
+        } else {
+            slideImages[counter].style.animation = 'prev2 0.5s ease-in forwards';
+        }
+        indicators();
+    }
+</script>
+{% endblock %}
