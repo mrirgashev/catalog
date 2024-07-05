@@ -12,27 +12,309 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
     <link rel="stylesheet" href="{% static 'base.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <style>
+      /* Google Fonts - Poppins */
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+      /* body {
+          font-family: "Poppins", sans-serif;
+          margin: 0;
+          padding: 0;
+          background: #f0faff;
+      } */
+
+      nav {
+          /* position: fixed; */
+          top: 0;
+          left: 0;
+          width: 100vw;
+          background: #035e5bae;
+          backdrop-filter: blur(20px);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          z-index: 999;
+          backdrop-filter: blur(20px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: fixed;
+      }
+      .close-menu-toggle {
+          display: none;
+      }
+      .menu-toggle {
+          display: none;
+          flex-direction: column;
+          cursor: pointer;
+          padding: 10px;
+          color: #fff;
+          font-size: 20px;
+      }
+
+      .bar {
+          width: 18px;
+          height: 2px;
+          background-color: #fff;
+          margin: 2px 0;
+      }
+      
+      .navbar {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          background-color: #ffffff00;
+          flex-wrap: nowrap;
+          z-index: 1 !important;
+          /* column-gap: 20px; */
+      }
+
+      .nav-item {
+          position: relative;
+
+      }
+
+      .nav-item a {
+          display: block;
+          padding: 15px 0px;
+          color: #ebe9e9;
+          text-decoration: none;
+          /* border-right: 1px solid #036868; */
+          text-align: center;
+          margin: 0 10px;
+          /* background: #1b807c; */
+      }
+      .logo {
+        font-size: 22px;
+        font-weight: 500;
+        color: white;
+        position: absolute;
+        left: 50px;
+        }
+
+      .logo:hover {
+        color: #fff;
+      }
+
+      .drop-menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          z-index: 1000;
+      }
+
+      .drop-menu li a {
+          /* padding: 10px 20px; */
+          white-space: nowrap;
+          color: #000;
+          text-align: center;
+          z-index: 1000;
+          background-color: #ffffff;
+          border: 1px solid rgb(178, 176, 176);
+          border-top: none;
+          padding-left: 10px;
+          padding-right: 10px;
+      }
+      .drop-menu li a:hover {
+          /* padding: 10px 20px; */
+          white-space: nowrap;
+          color: rgb(255, 255, 255);
+          text-align: center;
+          z-index: 1000;
+          background-color: #3e9491;
+      }
+
+
+      .nav-item:hover .drop-menu {
+          display: block;
+      }   
+
+      .search-icon {
+          color: #fff;
+          font-size: 20px;
+          cursor: pointer;
+          position: absolute;
+          right: 50px;
+      }
+
+      .search-box {
+          position: absolute;
+          /* right: 250px; */
+          height: 45px;
+          max-width: 555px;
+          width: 100%;
+          opacity: 0;
+          pointer-events: none;
+          transition: all 0.2s linear;
+          z-index: 1000;
+      }
+
+      nav.openSearch .search-box {
+          opacity: 1;
+          pointer-events: auto;
+      }
+
+      .search-box .search-icon {
+          position: absolute;
+          left: 15px;
+          top: 50%;
+          left: 15px;
+          color: #727070;
+          transform: translateY(-50%);
+      }
+
+      .search-box input {
+          height: 100%;
+          width: 100%;
+          border: none;
+          outline: none;
+          /* border-radius: 6px; */
+          background-color: #fff;
+          padding: 0 15px 0 45px;
+          font-size: clamp(1rem, 0.835rem + 0.499vi, 1.2rem);
+      }
+
+
+      @media (max-width: 768px) {
+          .menu-toggle {
+              display: flex;
+          }
+          nav {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100vw;
+              height: 50px;
+              /* margin-left: 0; */
+              /* margin-left: 5vw; */
+              box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+              z-index: 999;
+              backdrop-filter: blur(20px);
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+
+          }
+          .nav-item a {
+              border: none;
+              }
+            
+        .drop-menu li a {
+            border: none;
+        }
+            
+          .navbar {
+              display: flex;
+              flex-direction: column;
+              padding-top: 30px;
+              width: 70%;
+              height: 100vh;
+              background-color: #035e5b;
+              position: fixed;
+              top: 0;
+              left: 0;
+              transform: translateX(-100%);
+              transition: 0.3s;
+              z-index: 1000;
+
+              li a {
+                  text-align:start;
+                  padding-left: 30px;
+              }
+          }
+          .close-menu-toggle {
+              display: block;
+              position: absolute;
+              top: 0px; 
+              right: 0px; 
+              background: none;
+              border: none;
+              cursor: pointer;
+              padding: 10px;
+              color: #fff;
+              font-size: 24px;
+
+          }
+
+
+          .navbar.active {
+              transform: translateX(0);
+          }
+
+          .nav-item a {
+              padding: 10px;
+          }
+
+          .drop-menu {
+              position: static;
+              background-color: #4a9895;
+              margin-bottom: 40px;
+
+          }
+
+          .drop-menu li a {
+              /* padding-left: 30px; */
+              color: white;
+              background-color: #72707000;
+          }
+
+          .nav-item.active .drop-menu {
+              display: block;
+          }
+
+          .search-box {
+              top: calc(100% + 10px);
+              max-width: calc(100% - 20px);
+              right: 50%;
+              transform: translateX(50%);
+              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+              z-index: 999;
+          }
+      }
+  </style>
 </head>
 <body>
+
     <nav class="nav">
-        <i class="uil uil-bars navOpenBtn"></i>
-        <a href="{% url 'catalog:home' %}" class="logo">Ahl-oil</a>
-        <ul class="nav-links">
-          <i class="uil uil-times navCloseBtn"></i>
-          <li><a href="{% url 'catalog:home' %}">Home</a></li>
-          <li><a href="{% url 'catalog:products' %}">Продукты</a></li>
-          <li><a href="{% url 'catalog:favorites_list' %}">Избранные</a></li>
-          <li><a href="{% url 'catalog:contacts' %}">Contact Us</a></li>
-        </ul>
-        <i class="uil uil-search search-icon" id="searchIcon"></i>
-        <div class="search-box">
-          <form action="{% url 'catalog:products' %}" method="get">
-            <i class="uil uil-search search-icon"></i>
-            <input name="search" type="text" placeholder="Search here..." />
-          </form>
-        </div>
+      <div class="menu-toggle" id="mobile-menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class=" bar"></span>
+      </div>
+      <a href="{% url 'catalog:home' %}" class="logo">Ahl-oil</a>
+      <ul class="navbar breadcrumbs" id="nav-links" aria-label="breadcrumbs">
+          <button class="close-menu-toggle" id="close-menu">
+              <i class="uil uil-times"></i>
+          </button>
+          <li class="nav-item"><a href="{% url 'catalog:products' %}">Все продукты</a></li>
+          {% for category in categories %}
+          <li class="nav-item drop">
+              <a>{{ category }}</a>
+              <ul class="drop-menu">
+                  <li><a href="{% url 'catalog:products' %}?category={{ category.pk }}">{{ category }}</a></li>
+                  {% for subcategory in subcategories %}
+                    {% if subcategory.category == category %}
+                      <!-- <hr style="margin: 0;padding: 0; width: 85%; margin-left: 7.5%;"> -->
+                      <li><a href="{% url 'catalog:products' %}?subcategory={{ subcategory.pk }}">{{ subcategory }}</a></li>
+                    {% endif %}
+                  {% endfor %}
+              </ul>
+          </li>
+          {% endfor %}
+          <li class="nav-item"><a href="{% url 'catalog:contacts' %}">Contact</a></li>
+          <li class="nav-item"><a href="{% url 'catalog:favorites_list' %}">Saved</a></li>
+      </ul>
+      <i class="uil uil-search search-icon" id="searchIcon"></i>
+      <div class="search-box">
+          <i class="uil uil-search search-icon"></i>
+          <input type="text" placeholder="Search here..." />
+      </div>
     </nav>
-    <br><br><br><br>
+<br><br><br>
+
     {% block content %}
     {% endblock %}
     {% if messages %} 
@@ -112,7 +394,52 @@
           }, 3000); // 3000 milliseconds = 3 seconds
       });
   </script>
-    <script>
+  <script>
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenu = document.getElementById('close-menu');
+    const navLinks = document.getElementById('nav-links');
+    const navItems = document.querySelectorAll('.nav-item.dropdown');
+    const searchIcon = document.querySelector("#searchIcon");
+    const nav = document.querySelector(".nav");
+
+    mobileMenu.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    closeMenu.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        const isClickInsideNav = navLinks.contains(e.target) || mobileMenu.contains(e.target);
+        if (!isClickInsideNav) {
+            navLinks.classList.remove('active');
+        }
+    });
+
+    // Toggle dropdown menus on click
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent click event from bubbling up
+            const isActive = item.classList.contains('active');
+            navItems.forEach(i => i.classList.remove('active')); // Close all dropdowns
+            if (!isActive) {
+                item.classList.add('active'); // Open the clicked dropdown
+            }
+        });
+    });
+
+    searchIcon.addEventListener("click", () => {
+        nav.classList.toggle("openSearch");
+        nav.classList.remove("openNav");
+        if (nav.classList.contains("openSearch")) {
+            return searchIcon.classList.replace("uil-search", "uil-times");
+        }
+        searchIcon.classList.replace("uil-times", "uil-search");
+    });
+    </script>
+    <!-- <script>
         const nav = document.querySelector(".nav"),
         searchIcon = document.querySelector("#searchIcon"),
         navOpenBtn = document.querySelector(".navOpenBtn"),
@@ -135,6 +462,8 @@
         navCloseBtn.addEventListener("click", () => {
         nav.classList.remove("openNav");
         });
-    </script>
+    </script> -->
+
+    
 </body>
 </html>

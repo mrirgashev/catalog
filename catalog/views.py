@@ -9,10 +9,12 @@ from django.contrib import messages
 def home(request):
     carusel = Carusel.objects.all()
     categories = Category.objects.all()
-    
+    subcategories = Subcategory.objects.all()
+
     return render(request, 'home.html', {
         'carusel': carusel,
         'categories': categories,
+        'subcategories': subcategories,
     })
 
 
@@ -21,7 +23,11 @@ def products(request):
     category = request.GET.get('category')
     company = request.GET.get('company')
     search = request.GET.get('search', '')
+    subcategory = request.GET.get('subcategory')
 
+    if subcategory:
+        # subcategories = subcategories.filter(category=subcategory.category)
+        products = products.filter(subcategory=subcategory)
     if category:
         products = products.filter(category=category)
     if company:

@@ -27,12 +27,12 @@
       background-color: #74c2b6;
   }
 }
+
 .slide-container {
   position: relative;
   width: 90vw;
   height: 450px;
-  /* border: 1px solid black; */
-  /* box-shadow: 0 0 8px 2px rgba(0,0,0,0.2); */
+
   margin-right: 5vw;
   margin-left: 5vw;
 }
@@ -42,9 +42,11 @@
   position: relative;
   overflow: hidden;
 }
+
+
 .slide-container .slides img {
   width: 100%;
-  height: 100%;
+  height: fit-content;
   position: absolute;
   object-fit: cover;
 }
@@ -149,6 +151,7 @@ span.next:hover, span.prev:hover {
   background-color: white;
   /* border-radius: 12px; */
   text-align: center;
+  /* width: auto; */
   /* border-radius: 14px; */
   transition: 1s;
   border: 0.5px solid #eceaea;
@@ -181,32 +184,60 @@ span.next:hover, span.prev:hover {
   height: 24px;
   cursor: pointer;
 }
+.product_container {
+  height: 100vh;
 
+  .products {
 
-.messages-container {
-  opacity: 70%;
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
+    .product {
+      margin: 10px;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #c5e1db;
+    }
+  }
 }
 
-.message {
 
-  margin-bottom: 10px;
-  padding: 15px;
-  border-radius: 20px;
-  color: hwb(0 0% 100%);
-  font-weight: bold;
-  border: 1px rgba(0, 0, 0, 0.61) solid;;
-}
 
-.message.error {
-  background-color: #000000;
-}
-
-.message.success {
-  background-color: #ff0000;
+@media screen and (max-width: 768px) {
+  .product_container{
+    .products {
+      justify-content: center;
   
+      .product {
+        margin: 10px;
+        width: 70%;
+        margin-left: 15%;
+        margin-right: 15%;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #c5e1db;
+      }
+    }
+  }
+  .slide-container {
+    height: 110px;
+  }
+  .dotsContainer .dot {
+    width: 7px;
+    height: 7px;
+    
+  }
+
+  span.next, span.prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 4px;
+    color: #eee;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.5s;
+    border-radius: 3px;
+  }
 }
