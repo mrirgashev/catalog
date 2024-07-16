@@ -3,7 +3,7 @@ from catalog.models import *
 # Register your models here.
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'company', 'category', 'subcategory', 'description')
+    list_display = ('name', 'company', 'capacity', 'image', 'subcategory', 'category', 'thoughness', 'type', 'purpose')
 
     def save_model(self, request, obj, form, change):
         # Automatically set the category based on the selected subcategory
@@ -19,17 +19,14 @@ admin.site.register(Product, ProductAdmin)
 class CompanyAdmin(admin.ModelAdmin):
     ...
 
-# @admin.register(Category)
-# class CategoryAdmin(admin.ModelAdmin):
-#     ...
-
-# @admin.register(Product)
-# class ProductAdmin(admin.ModelAdmin):
-#     ...    
-
-
-@admin.register(Carusel)
-class CaruselAdmin(admin.ModelAdmin):
+@admin.register(Carusel_up_to_five_images)
+class Carusel_up_to_five_imagesAdmin(admin.ModelAdmin):
     ...    
+    
+
+@admin.register(New)
+class NewAdmin(admin.ModelAdmin):
+    ...    
+
 
 

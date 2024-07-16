@@ -166,6 +166,7 @@ span.next:hover, span.prev:hover {
 .product-image {
   display: block;
   max-width: 100%;
+  width: 300px;
   /* height: auto; */
   height: 300px; 
   border-radius: 7px;
@@ -184,34 +185,146 @@ span.next:hover, span.prev:hover {
   height: 24px;
   cursor: pointer;
 }
+
+
+
 .product_container {
-  height: 100vh;
+  /* height: 100vh; */
+  width: 100vw;
+  /* overflow-y: scroll; */
+  /* overflow-x: hidden; */
 
   .products {
-
+    /* display: flex;
+    flex-wrap: wrap; */
     .product {
       margin: 10px;
-      border-radius: 14px;
+      border-radius: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       background-color: #c5e1db;
+      max-width: 324px;
+      p {
+        width: 300px;
+        text-align: center;
+        font-weight: 500;
+        margin-top: 5px;
+        color: #222;
+        
+      }
     }
   }
 }
 
+#detail_title {
+  font-size: 30px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  color: #222;
+  margin-left: 5vw;
+  margin-top: 40px;
+}
 
+.detail_container {
+  /* height: 90vh; */
+  width: 90vw;
+  margin-left: 5vw;
+  /* overflow-y:scroll; */
+  /* overflow-x: hidden; */
+
+  .detail_columns {
+    p {
+      margin-bottom: 5px;
+      color: black;
+      font-weight: 400;
+      .spec {
+        color: #8c8a8a;
+      }
+    }
+    
+    .active {
+      background-color: #349687cc;
+      color: white;
+    }
+  }
+
+  .delivery {
+    .save_buttons {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      border: 1px solid #a8a6a6a1;
+      width: 300px;
+      margin-bottom: 50px;
+      
+      .button {
+        border: 1px solid #95939389;
+        height: 50px;
+        border-radius: 6px;
+        margin: 5px;
+
+        
+
+        img {
+          height: 40px;
+
+        }
+      }
+    }
+    .button:hover {
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      background-color: #edf1f0;
+      border: 1px solid #03423589;
+    }
+
+    p {
+      display: flex;
+      margin-top: 20px;
+      font-size: smaller;
+      font-weight: 600;
+      align-items: center;
+
+
+      img {
+        height: 50px;
+      }
+
+    }
+  }
+}
+
+.newss {
+  margin: auto;
+  margin-top: 70px;
+  margin-bottom: 70px;
+  display: flex;
+  justify-content: space-around;
+  width: 90vw;
+  border: 0.5px solid #eceaea;
+}
+.new {
+  background-color: rgb(241, 240, 240);
+  /* border-radius: 12px; */
+  text-align: center;
+  /* width: auto; */
+  /* border-radius: 14px; */
+  transition: 1s;
+  
+}
 
 @media screen and (max-width: 768px) {
   .product_container{
+    overflow-y: scroll;
+    overflow-x: hidden;
     .products {
       justify-content: center;
   
       .product {
         margin: 10px;
-        width: 70%;
-        margin-left: 15%;
-        margin-right: 15%;
+        width: 75%;
+        margin-left: 12.5%;
+        margin-right: 12.5%;
         border-radius: 12px;
         display: flex;
         flex-direction: column;
@@ -229,6 +342,25 @@ span.next:hover, span.prev:hover {
     
   }
 
+  .news {
+    .new {
+      display: flex;
+      .new_image {
+        width: 30%;
+        margin-top: 5px;
+        /* margin: auto; */
+        img {
+          width: 100%;
+          
+        }
+      }
+      p {
+        font-size: 7px;
+        width: 70%;
+      }
+    }
+  }
+
   span.next, span.prev {
     position: absolute;
     top: 50%;
@@ -240,4 +372,48 @@ span.next:hover, span.prev:hover {
     transition: 0.5s;
     border-radius: 3px;
   }
+
+  .search_items {
+    display: flex;
+    flex-wrap: wrap; 
+    width: 90vw;
+    margin: auto;
+
+    .search_item {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  #detail_title {
+    font-size: 20px;
+    font-weight: 400;
+    color: #222;
+    margin-top: 0;
+    margin-left: 10px;
+  }
+  
+  .detail_container {
+    margin-top: 0;
+    .detail_columns {
+
+      width: 90vw;
+      margin-left: 5vw;
+      p {
+        margin-bottom: 5px;
+        color: black;
+        font-weight: 400;
+        .spec {
+          color: #8c8a8a;
+        }
+      }
+    }
+  
+    .delivery {
+      margin-left: 0vw;
+      .save_buttons {
+        width: 85vw;
+      }
+    }
+  }
+  
 }

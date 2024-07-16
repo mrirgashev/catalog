@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container detail_container is-multiline">
+    <p class="has-text-left" id="detail_title">{{ product.name }}</p>
+    <div class="columns detail_columns mt-6">
+        <div class="column is-4">
+            <img src="{{ product.image.url }}">
+        </div>
+        <div class="column specs is-4">
+            <p>
+                <span class="spec">Компания:</span> {{ product.company }}
+            </p>
+            <p>
+                {% if product.thoughness %}
+                <span class="spec">Вязкость:</span> {{ product.thoughness }}
+                {% endif %}
+            </p>
+            <p>
+                {% if product.capacity %}
+                <span class="spec">Емкость:</span> {{ product.capacity }}
+                {% endif %}
+            </p>
+            <p>
+                {% if product.type %}
+                <span class="spec">Тип:</span> {{ product.type }}
+                {% endif %}
+            </p>
+            <p>
+                {% if product.purpose %}
+                <span class="spec">Назначение:</span> {{ product.purpose }}
+                {% endif %}
+            </p>
+            <div class="mt-6">
+                <p>Выбор фасовки:</p>
+                {% for that_product in products %}
+                    {% if that_product.name == product.name and that_product.subcategory == product.subcategory and that_product.category == product.category %}
+                        {% if that_product.capacity == product.capacity %}
+                            <a href="{% url 'catalog:product_detail' pk=that_product.pk %}" class=" button active">
+                                {{ that_product.capacity }}
+                            </a>
+                        {% else %}
+                            <a href="{% url 'catalog:product_detail' pk=that_product.pk %}" class="button">
+                                {{ that_product.capacity }}
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="column is-4 delivery">
+            <div class="save_buttons">
+                {% if product.id in request.session.favorites %}
+                    <a href="{% url 'catalog:remove_from_favorites' product.id %}" class="button">
+                        <img src="{% static 'images/bookmark.png' %}" > 
+                    </a>
+                    <a href="{% url 'catalog:favorites_list' %}" class="button">
+                        <img src="{% static 'images/list.png' %}">
+                    </a>
+                {% else %} 
+                    <a href="{% url 'catalog:add_to_favorites' product.id %}" class="button">                        
+                        <img src="{% static 'images/save.png' %}"> 
+                    </a>
+                {% endif %}
+                
+                <span></span>
+            </div>
+            <p>
+                <img src="{% static 'images/hand.png' %}">
+                <span>Собственная служба доставки по<br> Бухаре и по ближним районам</span>
+            </p>
+            <p>
+                <img src="{% static 'images/ven.png' %}">
+                <span>Доставка транспортными <br> компаниями по всему Узбекистана и <br> СНГ</span>
+            </p>
+            <p>
+                <img src="{% static 'images/bags.png' %}">
+                <span>Самовывоз со склада в Бухаре</span>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const saveButtons = document.querySelectorAll('.save');
+
+        saveButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-id');
+                fetch(`/toggle_favorite/${productId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ product_id: productId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const productItem = document.querySelector(`.product-item[data-id="${productId}"]`);
+                    if (data.status === 'added') {
+                        productItem.style.backgroundColor = '#f0e68c';
+                    } else {
+                        productItem.style.backgroundColor = '#c5e1db';
+                    }
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

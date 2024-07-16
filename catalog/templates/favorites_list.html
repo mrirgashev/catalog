@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
-{% block content %}
-
-<div class="container is-multiline" style="height: 100vh;">
-    <div class="columns">
+{% block content %} 
+{% comment %} 
+<div class="container is-multiline product_container "  style="height: 100vh; ">
+    <div class="columns products">
         {% for product in products %}
-            <div class="column is-3" style=" margin: 10px; border-radius: 14px; display: flex;flex-direction: column; align-items: center;background-color: #c5e1db;">
+            <div class="column is-3">
                 <div class="demo-carousel">
                     <div class="demo-carousel">
                         {% if product.id in request.session.favorites %}
@@ -31,14 +31,67 @@
             </div>
         {% endfor %}
     </div>
+</div> {% endcomment %}
+
+<div class="container product_container is-multiline">
+    <div class="columns products">
+        {% for product in products %}
+            <div class="column product is-3">
+                <div class="demo-carousel">
+                    <div class="demo-carousel">
+                        {% if product.id in request.session.favorites %}
+                            <a href="{% url 'catalog:remove_from_favorites' product.id %}">
+                                <img src="{% static 'images/saved.png' %}" alt="" class="save"> 
+                            </a>
+                        {% else %} 
+                            <a href="{% url 'catalog:add_to_favorites' product.id %}">                        
+                                <img src="{% static 'images/save.png' %}" alt="" class="save"> 
+                            </a>
+                        {% endif %}
+                        <a href="{% url 'catalog:product_detail' pk=product.pk %}">
+                            <img src="{{ product.image.url }}" alt="{{ product.image.url }}" loading="lazy" class="product-image">
+                        </a>
+                    </div>
+                </div>
+                <p>
+                    {{ product.name }}
+                </p>
+                <p>
+                    {% if product.thoughness %}
+                        {{ product.thoughness }}
+                    {% endif %}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
 </div>
-{% comment %} 
-<h1>My Favorites</h1>
-<ul>
-    {% for product in products %}
-        {{ product.name }}
-        <li>{{ product.name }} - <a href="{% url 'catalog:remove_from_favorites' product.id %}">Remove from Favorites</a></li> 
-    {% endfor %}
-</ul> {% endcomment %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const saveButtons = document.querySelectorAll('.save');
+
+        saveButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-id');
+                fetch(`/toggle_favorite/${productId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ product_id: productId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const productItem = document.querySelector(`.product-item[data-id="${productId}"]`);
+                    if (data.status === 'added') {
+                        productItem.style.backgroundColor = '#f0e68c';
+                    } else {
+                        productItem.style.backgroundColor = '#c5e1db';
+                    }
+                });
+            });
+        });
+    });
+</script>
 
 {% endblock content %}

@@ -6,11 +6,14 @@
 <div class="slide-container">
     <div class="slides">
         <img src="{% static 'images/1.png' %}" class="active">
-        <img src="{% static 'images/2.jpg' %}">
+        {% comment %} <img src="{% static 'images/2.jpg' %}">
         <img src="{% static 'images/3.png' %}">
         <img src="{% static 'images/4.png' %}">
         <img src="{% static 'images/5.jpg' %}">
-        <img src="{% static 'images/6.png' %}">
+        <img src="{% static 'images/6.png' %}"> {% endcomment %}
+        {% for card in carusel %}
+            <img src="{{ card.image.url }}">
+        {% endfor %}
     </div>
     <div class="buttons">
         <span class="next">&#10095;</span>
@@ -27,22 +30,22 @@
 </div>
 <div class="container search-line has-text-centered">
     <hr class="mb-0">
-    <div class="columns is-multiline mb-0 mt-1 is-vcentered">
-        <div class="column has-text-centered">
+    <div class="columns is-multiline search_items" style="margin: auto;">
+        <div class="column search_item has-text-centered is-half-mobile">
             <img src="{% static 'images/look.png' %}" alt="">
-            <span> Онлайн подбор<br> масла</span>
+            <span class="is-size-7-mobile"> Онлайн подбор<br> масла</span>
         </div>
-        <div class="column has-text-centered">
+        <div class="column search_item has-text-centered is-half-mobile">
             <img src="{% static 'images/money.png' %}" alt="">
-            <span> Доступная цена <br>от производителя</span>
+            <span class="is-size-7-mobile"> Доступная цена <br>от производителя</span>
         </div>
-        <div class="column has-text-centered">
+        <div class="column search_item has-text-centered is-half-mobile">
             <img src="{% static 'images/container.png' %}" alt="">
-            <span> Широкий ассортимент<br> товаров</span>
+            <span class="is-size-7-mobile"> Широкий ассортимент<br> товаров</span>
         </div>
-        <div class="column has-text-centered">
+        <div class="column search_item has-text-centered is-half-mobile">
             <img src="{% static 'images/time.png' %}" alt="">
-            <span> Быстрая доставка</span>
+            <span class="is-size-7-mobile"> Быстрая доставка</span>
         </div>
     </div>
     <hr class="mt-0">
@@ -62,6 +65,19 @@
                         <p><a href="{% url 'catalog:products' %}?subcategory={{ subcategory.pk }}">{{ subcategory }}</a></p>
                     {% endif %}
                 {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div> 
+
+<div class="newss" id="newss">
+    <div class="columns is-multiline news" style="width: 90vw;">
+        {% for new in news %}
+            <div class="column is-2.4 new">
+                <div class="new_image">
+                    <img src="{{ new.image.url }}" alt="{{ new.image.url }}">
+                </div>
+                <p class="is-size-7-mobile is-size-6-desktop">{{ new.title }}</p>
             </div>
         {% endfor %}
     </div>

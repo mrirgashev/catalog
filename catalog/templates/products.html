@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<div class="container product_container is-multiline">
-    <div class="columns products">
+<div class="container product_container ">
+    <div class="columns products is-multiline is-centered">
         {% for product in products %}
             <div class="column product is-3">
                 <div class="demo-carousel">
@@ -11,29 +11,23 @@
                             <a href="{% url 'catalog:remove_from_favorites' product.id %}">
                                 <img src="{% static 'images/saved.png' %}" alt="" class="save"> 
                             </a>
-                        {% else %}
+                        {% else %} 
                             <a href="{% url 'catalog:add_to_favorites' product.id %}">                        
                                 <img src="{% static 'images/save.png' %}" alt="" class="save"> 
                             </a>
                         {% endif %}
-                        <img src="{{ product.image.url }}" alt="{{ product.image.url }}" loading="lazy" class="product-image">
+                        <a href="{% url 'catalog:product_detail' pk=product.pk %}">
+                            <img src="{{ product.image.url }}" alt="{{ product.image.url }}" loading="lazy" class="product-image">
+                        </a>
                     </div>
                 </div>
                 <p>
                     {{ product.name }}
                 </p>
-                <p>
-                    {% if product.thoughness %}
-                        {{ product.thoughness }}
-                    {% endif %}
-                </p>
             </div>
         {% endfor %}
     </div>
 </div>
-<style>
-    
-</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
