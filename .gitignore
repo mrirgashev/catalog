@@ -4,6 +4,7 @@ settings_dev.py
 .DS_Store
 local-cdn/
 .venv
+./venv
 *.pyc
 media
 config/settings_dev.py
@@ -17,6 +18,7 @@ uploads
 .env
 vandelay-py.js
 .envrc
+
 # Logs
 logs
 *.log
@@ -26,4 +28,4 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 files/uploads
-db.sqlite3
+./db.sqlite3
