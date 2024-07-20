@@ -59,7 +59,7 @@
                         <img src="{{ category.cat_image.url }}" alt="{{ category.cat_image.url }}">
                     </a>
                 </div>
-                <p><a href="{% url 'catalog:products' %}?category={{ category.pk }}">{{ category }}</a></p>
+                <p><a class="has-text-primary is-size-5 " href="{% url 'catalog:products' %}?category={{ category.pk }}">{{ category }}</a></p>
                 {% for subcategory in subcategories %}
                     {% if subcategory.category == category %}
                         <p><a href="{% url 'catalog:products' %}?subcategory={{ subcategory.pk }}">{{ subcategory }}</a></p>
