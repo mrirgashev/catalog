@@ -59,10 +59,10 @@
                         <img src="{{ category.cat_image.url }}" alt="{{ category.cat_image.url }}">
                     </a>
                 </div>
-                <p><a class="has-text-primary is-size-5 " href="{% url 'catalog:products' %}?category={{ category.pk }}">{{ category }}</a></p>
+                <p><a class="has-text-primary-20 is-size-5 is-size-6-mobile" href="{% url 'catalog:products' %}?category={{ category.pk }}">{{ category }}</a></p>
                 {% for subcategory in subcategories %}
                     {% if subcategory.category == category %}
-                        <p><a href="{% url 'catalog:products' %}?subcategory={{ subcategory.pk }}">{{ subcategory }}</a></p>
+                        <p><a class="is-size-7-mobile is-size-6-desktop" href="{% url 'catalog:products' %}?subcategory={{ subcategory.pk }}">{{ subcategory }}</a></p>
                     {% endif %}
                 {% endfor %}
             </div>

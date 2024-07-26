@@ -1,0 +1,6 @@
+asgiref==3.8.1
+Django==5.0.7
+django-browser-reload==1.13.0
+django-jazzmin==3.0.0
+pillow==10.4.0
+sqlparse==0.5.1
