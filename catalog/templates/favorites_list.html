@@ -1,38 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block content %} 
-{% comment %} 
-<div class="container is-multiline product_container "  style="height: 100vh; ">
-    <div class="columns products">
-        {% for product in products %}
-            <div class="column is-3">
-                <div class="demo-carousel">
-                    <div class="demo-carousel">
-                        {% if product.id in request.session.favorites %}
-                            <a href="{% url 'catalog:remove_from_favorites' product.id %}">
-                                <img src="{% static 'images/saved.png' %}" alt="" class="save"> 
-                            </a>
-                        {% else %}
-                            <a href="{% url 'catalog:add_to_favorites' product.id %}">                        
-                                <img src="{% static 'images/save.png' %}" alt="" class="save"> 
-                            </a>
-                        {% endif %}
-                        <img src="{{ product.image.url }}" alt="{{ product.image.url }}" loading="lazy" class="product-image">
-                    </div>
-                </div>
-                <p>
-                    {{ product.name }}
-                </p>
-                <p>
-                    {% if product.thoughness %}
-                        {{ product.thoughness }}
-                    {% endif %}
-                </p>
-            </div>
-        {% endfor %}
-    </div>
-</div> {% endcomment %}
-
+{% block content %}
 <div class="container product_container is-multiline">
     <div class="columns products">
         {% for product in products %}

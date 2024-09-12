@@ -6,11 +6,6 @@
 <div class="slide-container">
     <div class="slides">
         <img src="{% static 'images/1.png' %}" class="active">
-        {% comment %} <img src="{% static 'images/2.jpg' %}">
-        <img src="{% static 'images/3.png' %}">
-        <img src="{% static 'images/4.png' %}">
-        <img src="{% static 'images/5.jpg' %}">
-        <img src="{% static 'images/6.png' %}"> {% endcomment %}
         {% for card in carusel %}
             <img src="{{ card.image.url }}">
         {% endfor %}
