@@ -5,6 +5,7 @@ nav {
     width: 100vw;
     background: #035e5bae;
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     z-index: 999;
     backdrop-filter: blur(20px);
